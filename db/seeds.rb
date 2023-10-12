@@ -1,4 +1,4 @@
-^# This file should contain all the record creation needed to seed the database with its default values.
+# This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
@@ -12,7 +12,7 @@ Tag.create([
     { name: '冒険' },
     { name: 'アニメーション' },
     { name: '伝記' },
-    {。、ｋｍｇｖｂｃｘｓｚasDERFUIOJP^[^-0967845321- name: 'コメディ' },
+    {name: 'コメディ' },
     { name: '犯罪'},
     { name: 'ドキュメンタリー'},
     { name: 'ドラマ'},
