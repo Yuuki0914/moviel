@@ -1,0 +1,15 @@
+<%= form_for @movie do |f| %>
+    <% if user_signed_in? %>
+        <div  class= "edit" >
+            <%= f.label :title %>
+            <%= f.text_field :title, :size => 30 %> 
+            <%= f.label :highlight %>
+            <%= f.text_field :highlight, :size => 30 %> 
+            <%= f.label :released_year %>
+            <%= f.text_field :released_year, :size => 30 %> 
+            <%= f.label :maincharacter %>
+            <%= f.text_field :maincharacter, :size => 30 %> 
+        <%= f.submit "編集する" %>
+        </div>
+    <% end %>
+<% end %>

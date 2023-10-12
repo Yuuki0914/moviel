@@ -1,0 +1,29 @@
+<div class="movies">
+    <% @movies.each_with_index do |t,i| %>
+        <% if i < 3 %>
+        第<%= i+1 %>位
+        <% if t.tags.exists?(name: '洋画')%>
+
+    <div class="movie2">
+        <%= link_to t.user.name, user_path(t.user.id) %>     
+        <p>『タイトル』</p>
+        <%= t.title %>
+        <p>『公開年』</p>
+        <%= t.released_year %>
+        <p>『あらすじ』</p>
+        <%= t.highlight %>
+        <div class="index">
+        <% if user_signed_in? %>
+            <i class="fas fa-heart"></i><%= t.likes.count %>
+        <% end %>
+        <%= link_to "詳細へ", movie_path(t.id) %> 
+        <% if user_signed_in? && current_user.id == t.user_id %>
+            <%= button_to "削除", movie_path(t.id), method: :delete %>
+            <%= link_to "編集", edit_movie_path(t.id) %>
+        <% end %>
+        <% end %>
+        </div>
+    </div>
+        <% end %>
+<% end %>
+</div>

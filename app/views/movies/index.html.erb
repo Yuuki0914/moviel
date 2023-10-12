@@ -1,0 +1,58 @@
+<div class="movie5">
+    <div class="movies-kaito">
+    <h3>一覧ページ</h3>
+    </div>
+
+<div class="search">
+<h3>投稿を検索</h3>
+    <%= form_tag({controller:"movies",action:"index"}, method: :get) do %>
+        <%= text_field_tag :search %>
+        <%= submit_tag '検索' %>
+    <% end %>
+</div>
+
+<h4>タグを検索</h4>
+<div class="movies-ami">
+    <%= form_tag({controller:"movies",action:"index"}, method: :get) do %>
+        <% Tag.all.each do |t| %>
+            <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+        <% end %>
+        <%= submit_tag '検索' %>
+    <% end %>
+
+<div class="movies-container">
+    <% @movies.each do |t| %>
+        <div class="movie1">
+            <%= link_to t.user.name, user_path(t.user.id) %>     
+            <p>『タイトル』</p>
+            <%= t.title %>
+            <p>『公開年』</p>
+            <%= t.released_year %>
+            <p>『あらすじ』</p>
+            <%= t.highlight %>
+                <div class="index">
+                    <% if user_signed_in? %>
+                        <% if current_user.already_liked?(t) %>
+                            <%= button_to movie_like_path(id: t.id, movie_id: t.id), method: :delete do %>
+                                <i class="fas fa-heart"></i><%= t.likes.count %>
+                            <% end %>
+                        <% else %>
+                            <%= button_to movie_likes_path(id: t.id, movie_id: t.id), method: :post do %>
+                                <i class="fas fa-heart"></i><%= t.likes.count %>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                    <% end %>
+                    <%= link_to "詳細へ", movie_path(t.id) %> 
+                    <% if user_signed_in? && current_user.id == t.user_id then %>
+                        <%= button_to "削除", movie_path(t.id), method: :delete %>
+                        <%= link_to "編集", edit_movie_path(t.id) %>
+                    <% end %>
+                </div>
+        </div>
+    <% end %>
+</div>
+</div>
+</div>
+

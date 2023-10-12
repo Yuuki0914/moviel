@@ -1,0 +1,39 @@
+<h3>新規投稿ページ</h3>
+<div class="movie-new">
+<%= form_for @movie do |f| %>
+    <div class='form-group'>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+        <div class='form-check'>
+            <%= tag.label class: 'form-check-label' do %>
+                <%= tag.check_box class: 'form-check-input' %>
+                <%= tag.text %>
+            <% end %>
+        </div>
+    <% end %>
+    </div>
+    
+    <div class ="fields">
+        <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title, :size => 30 %>
+        </div>
+
+        <div class="field">
+            <%= f.label :released_year  %>
+            <%= f.number_field :released_year, :size => 10 %>
+        </div>
+
+        <div class="field">
+        <%= f.label :maincharacter %>
+        <%= f.text_field :maincharacter, :size => 30 %>
+        </div>
+
+        <div class="field">
+            <%= f.label :highlight  %>
+            <%= f.text_area :highlight, :size => "30x2" %>
+        </div>
+
+    <%= f.submit "投稿する" %>
+    </div>
+</div>
+<% end %>

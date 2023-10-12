@@ -1,0 +1,91 @@
+<div class="search">
+<%= form_tag({controller:"movies",action:"index"}, method: :get) do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag '検索' %>
+<% end %>
+</div>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>6-1-7 複数画像を中央に注目させて見せる</title>
+<meta name="description"  content="書籍「動くWebデザインアイディア帳」のサンプルサイトです">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--==============レイアウトを制御する独自のCSSを読み込み===============-->
+<link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/css/6-1-7.css">
+
+</head>
+
+<body>
+
+<ul class="slider">
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_01.jpg" alt=""></li>
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_02.jpg" alt=""></li>
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_03.jpg" alt=""></li>
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_04.jpg" alt=""></li>
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_05.jpg" alt=""></li>
+    <li><img src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/img/img_06.jpg" alt=""></li>
+<!--/slider--></ul>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/6-1-7/js/6-1-7.js"></script>
+
+</body>
+</html>
+
+<div class= "movie-top">
+    <div class= "movie-top1">
+        <%= form_tag({controller:"movies",action:"index"}, method: :get) do %>
+            <% Tag.all.each do |t| %>
+                <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+            <% end %>
+            <%= submit_tag '検索' %>
+        <% end %>
+    </div>
+
+<div class="movies-container">
+    <% @movies.each_with_index do |t,i| %>
+        <% if i < 3 %>
+        第<%= i+1 %>位
+        <div class="movie">
+            <%= link_to t.user.name, user_path(t.user.id) %>
+            <%= image_tag t.image_url, size: "250x200" if t.image? %>   
+            <p>『タイトル』</p>
+            <%= t.title %>
+            <p>『公開年』</p>
+            <%= t.released_year %>
+            <p>『あらすじ』</p>
+            <%= t.highlight %>
+            <% if user_signed_in? %>
+                <% if current_user.already_liked?(t) %>
+                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% else %>
+                        <i class="fas fa-heart"></i><%= t.likes.count %>
+                <% end %>
+            <% else %>
+                    <i class="fas fa-heart"></i><%= t.likes.count %>
+            <% end %>
+        </div>
+        <% end %>
+    <% end %>
+</div>
+</div>
+
+<script>
+$('.slider').slick({
+    autoplay: true,//自動的に動き出すか。初期値はfalse。
+    infinite: true,//スライドをループさせるかどうか。初期値はtrue。
+    speed: 500,//スライドのスピード。初期値は300。
+    slidesToShow: 3,//スライドを画面に3枚見せる
+    slidesToScroll: 1,//1回のスクロールで1枚の写真を移動して見せる
+    prevArrow: '<div class="slick-prev"></div>',//矢印部分PreviewのHTMLを変更
+    nextArrow: '<div class="slick-next"></div>',//矢印部分NextのHTMLを変更
+    centerMode: true,//要素を中央ぞろえにする
+    variableWidth: true,//幅の違う画像の高さを揃えて表示
+    dots: true,//下部ドットナビゲーションの表示
+});
+</script>

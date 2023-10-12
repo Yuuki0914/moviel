@@ -1,0 +1,41 @@
+<%= form_for(@tweet, class: 'form-horizontal', role: 'form') do |f| %>
+    <div class="sindan">
+        <div class="sindan1">
+            <div class="col-12">
+                <p>Question1. どちらが好きか？</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "1", nil %>洋画</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "2", nil %>邦画</p>
+            </div>
+        </div>
+        <div class="sindan2">
+            <div class="col-12">
+                <p>Question2. 今日の気分は？</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "1", nil %>ドキドキしたい</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "2", nil %>キュンキュンしたい</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "3", nil %>思いっきり泣きたい</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "4", nil %>スカッとしたい</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "5", nil %>笑いたい</p>
+            </div>
+            <div class="col-6">
+                <p><%= f.check_box :question, {multiple: true}, "6", nil %>元気をもらいたい</p>
+            </div>
+        </div>
+    </div>
+    <div class="sindanbotan">
+        <%= f.submit "送信" %>
+    </div>
+<% end %>
